@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "git@github.com:jake-the-cake/goat.git",
   "author": "jake-the-cake <askjake331@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.13.0"
+  }
 }
