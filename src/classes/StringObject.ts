@@ -21,10 +21,10 @@ export class StringObject {
     this.splitArray = value.split('.')
     return this
   }
-  isValidPath(valid: boolean = this.checkDepends([this.splitArray, this.endOfArray])): this {
+  isValidPath(valid: boolean = this.checkDepends([this.splitArray])): this {
     if (valid){
       this.splitArray!.forEach(function(item): void{
-        if (!item.match(/^[A-Za-z0-9_-]+$/)) valid = false
+        if (!item.match(/^[A-Za-z0-9_-]+$/) && item) valid = false
       })
       if (valid !== true) this.errorLocations?.push('isValidPath')
     }
