@@ -7,10 +7,14 @@ export class StringObject {
     this.value = value
     this.errorLocations = []
   }
-  checkDepends(depends: any[], val: boolean = true): boolean{
+  checkDepends(depends: any[], val: boolean = true): boolean {
     depends.forEach(function(item){if (item === undefined) val = false})
 		if (val === false) this.errorLocations?.push('checkDepends')
     return val
+  }
+  splitAt(value: string = this.value, char: string): this {
+    this.splitArray = value.split(char)
+    return this
   }
   splitAtSlash(value: string = this.value): this {
     this.splitArray = value.split('/')
@@ -23,7 +27,8 @@ export class StringObject {
   }
   isValidPath(valid: boolean = this.checkDepends([this.splitArray])): this {
     if (valid){
-      this.splitArray!.forEach(function(item): void{
+      this.splitArray!.forEach(function(item, i, arr): void{
+        if(i === arr.length - 1) return
         if (!item.match(/^[A-Za-z0-9_-]+$/) && item) valid = false
       })
       if (valid !== true) this.errorLocations?.push('isValidPath')
@@ -44,3 +49,12 @@ export class StringObject {
     return false
   }
 }
+
+export class PathString extends StringObject {
+  constructor(value: string){
+    super(value)
+    console.log(this.splitAtSlash().isValidPath())
+  }
+}
+
+new PathString('/hi')
