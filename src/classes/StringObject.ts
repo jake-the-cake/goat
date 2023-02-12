@@ -17,6 +17,7 @@ export class StringObject {
 		this.value = this.originalValue = value
     this.errorLocations = []
 		this.name = 'StringObject'
+		return this
   }
 
   splitAt(char: string): this { this.splitValue = this.value.split(char)
@@ -51,6 +52,23 @@ export class StringObject {
     })
     return false
   }
+
+	// set the object back to inital construction
+	reset(): this { 
+		const { originalValue, name } = this
+		// const objKeys = Object.keys(this)
+		// Object.prototype.
+		// console.log(objKeys)
+		// Object.
+		// console.log(this)
+		// Object.keys(this).forEach(function(item: string, i: number, obj: string[]){
+		// 	obj.filter((key: string) => key !== item)
+		// 	console.log(obj)
+		// 	return obj
+		// })
+		// console.log(this)
+		return this
+	}
 }
 
 
