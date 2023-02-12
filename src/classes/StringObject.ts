@@ -19,12 +19,8 @@ export class StringObject {
 		this.name = 'StringObject'
   }
 
-	// if (val === false) this.errorLog()
-	
-  splitAt(char: string): this {
-		this.splitValue = this.value.split(char)
-    return this
-  }
+  splitAt(char: string): this { this.splitValue = this.value.split(char)
+		return this }
 	
 	removeFromArray(posistion: any = 0): void {
 		if (FirstPositionKeys.includes(String(posistion))) this.splitValue?.shift()
@@ -35,19 +31,19 @@ export class StringObject {
 		// return this.splitValue!
 	}
 	
-	getLastPosition(valid: boolean = checkDepends(this.splitValue!), arr: string[] = []): string {
+	getLastPosition(): this {
 		this.location = 'getLastPosition'
-		if (valid) arr = this.splitValue!
-		if (typeof arr === 'object' && arr.length > 0) return arr[arr.length - 1]
-		this.errorLog()
-		return ''
+		if ( checkDepends(this.splitValue!)
+			&& typeof this.splitValue === 'object'
+			&& this.splitValue.length > 0
+		) this.value = this.splitValue[this.splitValue.length - 1]
+		else this.errorLog()
+		return this
 	}
 	
-	errorLog(sub: 'sub' | undefined = undefined): void {
-		this.errorLocations.push((sub ? '^^ ' : '') + this.location!)
-	}
-	
-  errorCheck(): boolean {
+	// error system
+	errorLog(sub: 'sub' | undefined = undefined): void { this.errorLocations.push((sub ? '^^ ' : '') + this.location!) }
+	errorCheck(): boolean {
 		const name = this.name
     if (this.errorLocations!.length === 0) return true
     this.errorLocations.forEach(function(item){
@@ -68,23 +64,26 @@ export class PathString extends StringObject {
 		this.name = 'PathString'
   }
 	
-	splitPath(): this {
+	splitPath(valid: boolean = checkDepends([this.value])): this {
 		this.location = 'splitValue'
 		this.splitAt('/')
-		const arr = this.splitValue
-		switch (arr?.length) {
-			case undefined:
-				this.errorLog('sub')
-				break
-			case 1:
-				if (arr[0] !== '') this.errorLog('sub')
-				else this.value = arr[0]
-				break
-			default:
-				this.value = this.getLastPosition()
-				this.removeFromArray('first')
-				if (this.getLastPosition() === '') this.removeFromArray('end')
+		if (valid) {
+			const arr = this.splitValue
+			switch (arr?.length) {
+				case undefined:
+					this.errorLog('sub')
+					break
+				case 1:
+					if (arr[0] !== '') this.errorLog('sub')
+					else this.value = arr[0]
+					break
+				default:
+					this.getLastPosition()
+					this.removeFromArray('first')
+					if (this.getLastPosition().value === '') this.removeFromArray('end')
+			}
 		}
+		else this.errorLog()
 		return this
 	}
 				
@@ -103,6 +102,11 @@ export class PathString extends StringObject {
 	
 	parseFileName(): this {
 		// TODO
+		if (checkDepends(this.splitValue!)) {
+
+		}
+		const filename = this.getLastPosition().value
+		console.log(filename)
 		return this
 	}
 }

@@ -41,12 +41,16 @@ export class GoatTail {
   }
 }
 
+
+
+
+
+
 function serverMain(req: http.IncomingMessage, res: http.OutgoingMessage, router: any){
-      const [validRoute, arr] = isRoute(req.url || '')
-      const [getFile, filename] = isFile(arr[arr.length - 1])
-      if (validRoute && !getFile) {
-        router.findRoute(arr)
-        console.log(`${'/' + arr.join('/')} is a route\n`)
-      }
-      res.end()
-    }
+  const [valid, routeArr, filename] = isRoute(req.url || '')
+  if (valid) {
+    router.findRoute(routeArr)
+    if (router.route) console.log(`${'/' + routeArr.join('/')} is a route\n`)
+  }
+  res.end()
+}

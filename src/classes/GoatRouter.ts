@@ -4,33 +4,24 @@ type RouterObject = {[key: string]: StringedKey | any}
 export class GoatRouter {
 	name?: string
 	router: RouterObject
+	route?: RouterObject
 
 	constructor(router: RouterObject) {
 		this.router = router
 		return this
 	}
 
-	findRoute(arr: string[]) {
-		const routeArray: string[] = []
-		let path: any = this.router.pages
-		let notFound: boolean = false
-		// if (arr.length === 0) this.redirect('/')
-
-		arr[arr.length - 1] !== 'index' && arr.push('index')
-		console.log(arr)
+	findRoute(arr: string[]): this {
+		let exists: boolean = true
+		this.route = undefined
+		let route = this.router.pages
 		arr.forEach(function(item, i){
-			if (i === arr.length - 1 && item === 'index') console.log('FOUND!') 
-			else if (path[item] && notFound === false){
-				path = path[item]
-				routeArray.push(item)
-			}
-			else notFound = true
+			if (exists && route[item]) route = route[item]
+			else exists = false
 		})
-
-		if (notFound) console.log(404)
-		else {
-			// if 
-		}
+		if (exists) this.route = route
+		else console.log(404)
+		return this
 	}
 
 	redirect(route: string) {
