@@ -8,5 +8,8 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.13.0"
+  },
+  "scripts": {
+    "dev": "nodemon lib/index.js"
   }
 }

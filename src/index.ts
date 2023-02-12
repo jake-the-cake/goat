@@ -1,7 +1,7 @@
 import { GoatTail } from './classes/GoatTail'
-import router from './router'
+import map from './map'
 
-new GoatTail('fake')
+new GoatTail('goat farm')
 	.message(`Angela is the best!`)
-	.map(router)
+	.map(map)
 	.run()

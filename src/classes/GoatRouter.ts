@@ -11,20 +11,26 @@ export class GoatRouter {
 	}
 
 	findRoute(arr: string[]) {
-		const routePathArray: string[] = []
+		const routeArray: string[] = []
 		let path: any = this.router.pages
 		let notFound: boolean = false
 		// if (arr.length === 0) this.redirect('/')
-		if (arr.length === 0) arr[0] = 'index'
+
+		arr[arr.length - 1] !== 'index' && arr.push('index')
+		console.log(arr)
 		arr.forEach(function(item, i){
-			if (path[item] && notFound === false){
+			if (i === arr.length - 1 && item === 'index') console.log('FOUND!') 
+			else if (path[item] && notFound === false){
 				path = path[item]
-				routePathArray.push(item)
+				routeArray.push(item)
 			}
 			else notFound = true
 		})
+
 		if (notFound) console.log(404)
-		console.log(routePathArray)
+		else {
+			// if 
+		}
 	}
 
 	redirect(route: string) {
