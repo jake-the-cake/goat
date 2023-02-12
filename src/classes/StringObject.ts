@@ -55,19 +55,14 @@ export class StringObject {
 
 	// set the object back to inital construction
 	reset(): this { 
-		const { originalValue, name } = this
-		// const objKeys = Object.keys(this)
-		// Object.prototype.
-		// console.log(objKeys)
-		// Object.
-		// console.log(this)
-		// Object.keys(this).forEach(function(item: string, i: number, obj: string[]){
-		// 	obj.filter((key: string) => key !== item)
-		// 	console.log(obj)
-		// 	return obj
-		// })
-		// console.log(this)
-		return this
+		const newThis = this
+		const obj = ['originalValue', 'name']
+		Object.keys(this).filter(key => !obj.includes(key)).forEach(function(item: string): void {
+			Object.defineProperty(newThis, item, {value: undefined})
+		})
+		newThis.errorLocations = []
+		newThis.value = this.originalValue
+		return newThis
 	}
 }
 
@@ -124,12 +119,12 @@ export class PathString extends StringObject {
 
 		}
 		const filename = this.getLastPosition().value
-		console.log(filename)
+		// console.log(filename)
 		return this
 	}
 }
 
 export function checkDepends(depends: any[], val: boolean = true): boolean {
-	depends.forEach(function(item){if (item === undefined) val = false})
+	depends?.forEach(function(item){if (item === undefined) val = false})
 	return val
 }
