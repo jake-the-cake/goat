@@ -11,5 +11,8 @@
   },
   "scripts": {
     "dev": "nodemon lib/index.js"
+  },
+  "dependencies": {
+    "quiggle": "^0.0.11"
   }
 }
