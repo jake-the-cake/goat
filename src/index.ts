@@ -1,4 +1,4 @@
-import { GoatTail } from './classes/GoatTail'
+import { GoatTail } from 'quiggle'
 import map from './map'
 
 new GoatTail('goat farm')
